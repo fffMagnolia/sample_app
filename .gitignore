@@ -21,3 +21,6 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore spring folder for miss git conflict
+/spring/.pid
