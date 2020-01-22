@@ -80,4 +80,16 @@ class UserTest < ActiveSupport::TestCase
     # save後なのでreloadが必要
     assert_equal mixied_case_email.downcase, @user.reload.email
   end
+
+  test "password should be present (nonblank)" do
+    @user.password = @user.password_confirmation = "" * 6
+    # 失敗するのが正しい
+    assert_not @user.valid?
+  end
+
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * 5
+    # 失敗するのが正しい
+    assert_not @user.valid?
+  end
 end
