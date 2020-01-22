@@ -24,3 +24,6 @@
 
 # Ignore spring folder for miss git conflict
 /spring/.pid
+
+# Ignore IRB history
+.irb_history
