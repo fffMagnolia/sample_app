@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     # セキュリティ上、一度privateメソッドを通してから保存する
     @user = User.new(user_params)
     if @user.save
+      flash[:success] = "Welcome to the Sample App!"
       # url: 完全パスを返す
       redirect_to user_url(@user)
     else
