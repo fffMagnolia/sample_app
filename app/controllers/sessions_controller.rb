@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     # authenticate: has_secure_passwordを追加することにより提供されるメソッド
     if user && user.authenticate(params[:session][:password])
-      # do something
+      log_in user
+      # ログイン後ユーザページに遷移する
+      redirect_to user
     else
       flash.now[:danger] = 'Invalid email or password combination'
       render 'new'
