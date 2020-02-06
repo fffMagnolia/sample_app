@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def new
   end
 
-  # わかりにくいがログイン情報を送信した時のアクション
+  # ログイン情報を送信した時のアクション
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     # authenticate: has_secure_passwordを追加することにより提供されるメソッド
