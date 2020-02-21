@@ -1,4 +1,9 @@
 module SessionsHelper
+  # =====================================
+  # このヘルパーはapplication controllerにincludeされているので
+  # 全てのcontrollerから呼び出し可能
+  # =====================================
+
   # email&passwordでの認証後呼び出される
   def log_in(user)
     # session: Railsの組み込みメソッド
