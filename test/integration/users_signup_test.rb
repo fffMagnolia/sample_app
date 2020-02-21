@@ -37,5 +37,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     # リダイレクト後リクエストを行う際に必要
     follow_redirect!
     assert_template 'users/show'
+    assert is_logged_in?
   end
 end
