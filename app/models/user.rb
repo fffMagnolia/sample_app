@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+
+  attr_accessor :remember_token
+
   # Railsの魔法でカラムがインスタンス変数としてマッピングされている
   validates :name, presence: true, length: { maximum: 50 }
   
@@ -14,5 +17,16 @@ class User < ApplicationRecord
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
+  end
+
+  # token generator
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # token --> (hash) --> remember_digest
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_diget, User.digest(remember_token))
   end
 end
