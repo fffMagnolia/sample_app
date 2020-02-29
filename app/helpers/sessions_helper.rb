@@ -25,4 +25,11 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  def remember
+    user.remember
+    # signdで暗号化される
+    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
 end
