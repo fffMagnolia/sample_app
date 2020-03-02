@@ -92,4 +92,9 @@ class UserTest < ActiveSupport::TestCase
     # 失敗するのが正しい
     assert_not @user.valid?
   end
+
+  # remember_digestがnilになっていないことを確認するためのテスト
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
 end
