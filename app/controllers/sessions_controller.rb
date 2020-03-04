@@ -9,8 +9,7 @@ class SessionsController < ApplicationController
     # authenticate: has_secure_passwordを追加することにより提供されるメソッド
     if user && user.authenticate(params[:session][:password])
       log_in user
-      # ユーザを記憶する
-      remember user
+      params[:session][:remember_me] == '1' ? remeber(user) : forget(user)
       # ログイン後ユーザページに遷移する
       redirect_to user
     else
