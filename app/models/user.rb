@@ -10,7 +10,7 @@ class User < ApplicationRecord
   before_save { email.downcase! }
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # ログインテストの際、パスワードの正誤を確認するのに必要
   # テストの際は計算コストを最小限にする
