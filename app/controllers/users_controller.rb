@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :logged_in_user, only: [:edit, :update]
+
   # 暗黙の了解でshow=/user/1対応
   def show
     @user = User.find(params[:id])
@@ -42,5 +44,13 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    # --- before action ---
+    def logged_in_user
+      if logged_in? == false
+        flash[:danger] = 'Please logged in.'
+        redirect_to login_url
+      end
     end
 end
