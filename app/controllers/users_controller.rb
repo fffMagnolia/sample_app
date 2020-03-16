@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   # 暗黙の了解でshow=/user/1対応
   def show
@@ -51,6 +52,14 @@ class UsersController < ApplicationController
       if logged_in? == false
         flash[:danger] = 'Please logged in.'
         redirect_to login_url
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      # call helper method
+      if @user != current_user
+        redirect_to(root_url)
       end
     end
 end
