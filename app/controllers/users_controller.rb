@@ -42,7 +42,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    # params[:page]はwill_paginateが自動生成する
+    @users = User.paginate(page: params[:page])
   end
   
   private
