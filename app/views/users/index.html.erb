@@ -6,10 +6,8 @@
 
 <ul class="users">
   <% @users.each do |user| %>
-    <li>
-      <%= gravatar_for user, size: 50 %>
-      <%= link_to user.name, user %>
-    </li>
+    <!-- railsの魔法で render @usersと表記することも可能だが、わかりにくいので別記法を使用 -->
+    <%= render user %>
   <% end %>
 </ul>
 
