@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
 
   # 暗黙の了解でshow=/user/1対応
   def show
@@ -45,6 +46,12 @@ class UsersController < ApplicationController
     # params[:page]はwill_paginateが自動生成する
     @users = User.paginate(page: params[:page])
   end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
   
   private
 
@@ -65,6 +72,12 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       # call helper method
       if !current_user?(@user)
+        redirect_to(root_url)
+      end
+    end
+
+    def admin_user
+      if !current_user.admin?
         redirect_to(root_url)
       end
     end
